@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#250009">
+<title>Для тебя ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #70001c, #180006 75%);
+    font-family: Georgia, serif;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+}
+
+h2 {
+    color: #ffb6c1;
+    font-size: 23px;
+    margin-bottom: 65px;
+}
+
+.envelope {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    margin: auto;
+    background: #a8002a;
+    border-radius: 5px;
+    cursor: pointer;
+    perspective: 800px;
+    box-shadow: 0 0 45px #ff174455;
+}
+
+.letter {
+    position: absolute;
+    width: 90%;
+    height: 155px;
+    left: 5%;
+    top: 10px;
+    background: #fff5f5;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(0);
+    transition: transform 1.3s ease;
+    z-index: 2;
+    box-shadow: 0 3px 15px #0004;
+}
+
+.letter span {
+    color: #a00027;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.front {
+    position: absolute;
+    inset: 0;
+    background: #c90036;
+    clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+    border-radius: 5px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.flap {
+    position: absolute;
+    inset: 0;
+    background: #ff3158;
+    clip-path: polygon(0 0, 100% 0, 50% 58%);
+    transform-origin: top;
+    transition: transform .7s ease;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .letter {
+    transform: translateY(-145px);
+    z-index: 5;
+}
+
+.hint {
+    margin-top: 40px;
+    color: #ffb6c1;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    50% { opacity: .4; }
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    color: #ff1744;
+    pointer-events: none;
+    animation: fly 6s linear forwards;
+    z-index: 1;
+}
+
+@keyframes fly {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+    20% { opacity: .9; }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Для тебя ❤️</h2>
+
+    <div class="envelope" id="envelope">
+        <div class="letter">
+            <span>Я ТЕБЯ ЛЮБЛЮ ❤️</span>
+        </div>
+
+        <div class="front"></div>
+        <div class="flap"></div>
+    </div>
+
+    <div class="hint" id="hint">
+        Нажми на открытку ❤️
+    </div>
+</div>
+
+<script>
+"use strict";
+
+function createHeart() {
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+    heart.textContent = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(function() {
+        heart.remove();
+    }, 9000);
+}
+
+setInterval(createHeart, 300);
+
+const envelope = document.getElementById("envelope");
+const hint = document.getElementById("hint");
+
+envelope.addEventListener("click", function() {
+    if (envelope.classList.contains("open")) {
+        return;
+    }
+
+    envelope.classList.add("open");
+    hint.style.display = "none";
+});
+</script>
+
+</body>
+</html>
